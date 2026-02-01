@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "Steam Review Auto Upvoter",
+  "version": "1.0",
+  "description": "Automatically upvotes Steam reviews on user recommendation pages.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://steamcommunity.com/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://steamcommunity.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ]
+}

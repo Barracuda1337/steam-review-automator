@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+      background-color: #1b2838; /* Steam dark blue */
+      color: #c7d5e0;
+    }
+    h2 {
+      text-align: center;
+      color: #66c0f4;
+    }
+    .control-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+      background-color: #2a475e;
+      border: 1px solid #101a26;
+      color: white;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    #startBtn {
+      background-color: #66c0f4; /* Steam blue */
+      color: #000;
+    }
+    #startBtn:hover {
+        background-color: #1999e3;
+    }
+    #stopBtn {
+      background-color: #a04d4d;
+      color: white;
+    }
+    #stopBtn:hover {
+        background-color: #8f3232;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 0.9em;
+      text-align: center;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Steam Voter</h2>
+  
+  <div class="control-group">
+    <label for="pageCount">Total Pages to Index:</label>
+    <input type="number" id="pageCount" min="1" value="12">
+  </div>
+
+  <button id="startBtn">Start Voting</button>
+  <button id="stopBtn">Stop</button>
+
+  <div id="status">Ready</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
