@@ -140,8 +140,8 @@ function finishCurrentFriend() {
             });
         } else {
             // Done completely
-            chrome.storage.local.set({ isVoting: false, voteStatus: 'Bitti! - Tüm sayfalar tamamlandı.' });
-            updateStatus("Bitti! - Tüm sayfalar tamamlandı.");
+            chrome.storage.local.set({ isVoting: false, voteStatus: 'Done! - All pages completed.' });
+            updateStatus("Done! - All pages completed.");
             chrome.runtime.sendMessage({ action: "votingComplete" }).catch(() => {});
         }
     });
@@ -169,13 +169,13 @@ function goToNextPage() {
         // If NO next button is found, it usually means there is only 1 page, or we are at the end.
         // Previously we forced URL param, but for "Auto Detect" we should assume done.
         console.log("No next button found. Assuming end of list.");
-        updateStatus("Son sayfa (buton yok).");
+        updateStatus("Last page (next button missing).");
         finishCurrentFriend();
     }
 }
 
 function scrapeAndStartFriends() {
-    updateStatus("Arkadaş listesi taranıyor...");
+    updateStatus("Scraping friend list...");
     
     const friendBlocks = document.querySelectorAll('.friend_block_v2');
     let urls = [];
@@ -188,13 +188,13 @@ function scrapeAndStartFriends() {
     });
 
     if (urls.length === 0) {
-        alert("Hiç arkadaş bulunamadı! Sayfanın yüklendiğinden emin olun.");
-        updateStatus("Arkadaş bulunamadı!");
+        alert("No friends found! Ensure the page is fully loaded.");
+        updateStatus("No friends found!");
         return;
     }
 
-    if (!confirm(`${urls.length} arkadaş bulundu (Çevrimiçi ve Çevrimdışı dahil).\n\nHepsini sıraya alıp oylamaya başlamak istiyor musunuz?`)) {
-        updateStatus("İşlem iptal edildi.");
+    if (!confirm(`${urls.length} friends found (including Online/Offline).\n\nDo you want to queue them all and start voting?`)) {
+        updateStatus("Process cancelled.");
         return;
     }
 
@@ -310,7 +310,7 @@ async function runVotingCycle(maxPages) {
     // Skip to next friend immediately.
     if (buttons.length === 0) {
         console.log("No reviews found on this page. Skipping friend.");
-        updateStatus("İnceleme bulunamadı, diğer arkadaşa geçiliyor...");
+        updateStatus("No reviews found, moving to next friend...");
         await wait(1000); // Brief delay to read status
         finishCurrentFriend();
         return;
@@ -338,7 +338,7 @@ async function runVotingCycle(maxPages) {
         const reviewBox = btn.closest('.review_box');
         if (reviewBox && reviewBox.querySelector('.notification.banned')) {
             console.log("Skipping banned review.");
-            updateStatus(`Yasaklı inceleme atlanıyor (${i + 1}/${buttonsToClick.length})`);
+            updateStatus(`Skipping banned review (${i + 1}/${buttonsToClick.length})`);
             continue; 
         }
 
